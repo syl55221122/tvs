@@ -9,7 +9,7 @@ headers = {
     'Connection': 'keep-alive',
     'Content-Length': '514',
     'sec-ch-ua-platform': '"Windows"',
-    'Authorization': '233',
+    'Authorization': '233',  # ← 这里必须替换成真实的 Bearer Token，否则请求失败
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0',
     'Accept': 'application/json, text/plain, */*',
     'sec-ch-ua': '"Microsoft Edge";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
@@ -25,20 +25,18 @@ headers = {
     'Cookie': '__guid=261090063.613249672348867000.1716045888585.0752; Qs_lvt_347988=1716045889%2C1727758734; Qs_pv_347988=232592375406089440%2C2694674839023988700; Q=u%3DMBJ_1990%26n%3DMBJ_1990%26le%3DZGxkZQD5AwH5WGDjpKRhL29g%26m%3DZGZ2WGWOWGWOWGWOWGWOWGWOZmL0%26qid%3D30236351%26im%3D1_t0179f90761614136d3%26src%3Dpcw_pinpaizhongxin%26t%3D1; __NS_Q=u%3DMBJ_1990%26n%3DMBJ_1990%26le%3DZGxkZQD5AwH5WGDjpKRhL29g%26m%3DZGZ2WGWOWGWOWGWOWGWOWGWOZmL0%26qid%3D30236351%26im%3D1_t0179f90761614136d3%26src%3Dpcw_pinpaizhongxin%26t%3D1; cert_common=e76bf9d9-bc20-4a98-9f03-cfa370f72aa6; Qs_lvt_357693=1722167193%2C1722308122%2C1722398281%2C1722586464%2C1727758821; T=s%3D29492d3a3c509a1c3dcc142fd0e674b1%26t%3D1727758879%26lm%3D2-1%26lf%3D2%26sk%3D35b1f48167d1fa49a753a56e5926741d%26mt%3D1727758879%26rc%3D%26v%3D2.0%26a%3D1; __NS_T=s%3D29492d3a3c509a1c3dcc142fd0e674b1%26t%3D1727758879%26lm%3D2-1%26lf%3D2%26sk%3D35b1f48167d1fa49a753a56e5926741d%26mt%3D1727758879%26rc%3D%26v%3D2.0%26a%3D1; Qs_pv_357693=85128068538245360%2C1354647596654044700%2C4278164041916076000%2C602192517421148700%2C2674543313704729000'
 }
 
-# 可同时处理的省份列表
-#provinces = ['天津']
-provinces = ['重庆', '江苏']
-
+# 只抓取广西
+provinces = ['广西']
 
 # 从 URL 加载后缀
 def load_suffixes(url):
     try:
         response = requests.get(url)
         response.encoding = 'utf-8'
-        response.raise_for_status()  # 确保请求成功
+        response.raise_for_status()
         urls = []
         for line in response.text.splitlines():
-            url = line.strip().split(',')[0]  # 只取逗号前面的部分
+            url = line.strip().split(',')[0]
             urls.append(url)
         return urls
     except requests.exceptions.RequestException as e:
@@ -50,16 +48,15 @@ def load_url_names(url):
     try:
         response = requests.get(url)
         response.encoding = 'utf-8'
-        response.raise_for_status()  # 确保请求成功
+        response.raise_for_status()
         formatted_names = {}
         for line in response.text.splitlines():
-            line = line.strip()  # 去除前后的空白字符
-            # 检查行是否有效，包含逗号并且非空
+            line = line.strip()
             if line and ',' in line:
-                url, name = line.split(',', 1)  # 采用split(',',1)以避免过多分割
-                formatted_names[url.split('/')[-1]] = name  # 仅保留路径部分作为键
+                url_part, name = line.split(',', 1)
+                formatted_names[url_part.split('/')[-1]] = name
             else:
-                print(f"无效行：{line}")  # 打印无效行以供调试
+                print(f"无效行：{line}")
         return formatted_names
     except requests.exceptions.RequestException as e:
         print(f"Failed to load URL names from {url}: {e}")
@@ -81,7 +78,7 @@ def fetch_province_data(province):
                 "os_version": "10.0",
                 "language": "zh_CN",
                 "network": "3g",
-                "browser_info": "Chrome（版本: 129.0.0.0&nbsp;&nbsp;内核: Blink）",
+                "browser_info": "Chrome（版本: 129.0.0.0　　内核: Blink）",
                 "fingerprint": "8bafb7e3",
                 "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0",
                 "date": "2024/10/1 13:56:9",
@@ -89,7 +86,7 @@ def fetch_province_data(province):
             }
         }
         response = requests.post(url, json=data, headers=headers)
-        response.raise_for_status()  # 确保请求成功
+        response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Failed to fetch data for {province}: {e}")
@@ -99,50 +96,49 @@ def fetch_province_data(province):
 def extract_urls(json_data):
     found_urls = []
     for item in json_data.get('data', []):
-        # 检查 'service' 和 'http' 键是否存在
         if 'service' in item and 'http' in item['service']:
-            host = item['service']['http'].get('host')  # 使用 get 方法避免 KeyError
-            port = item.get('port')  # 直接获取 port
-            if host and port:  # 确保 host 和 port 不为空
+            host = item['service']['http'].get('host')
+            port = item.get('port')
+            if host and port:
                 found_urls.append(f"{host}:{port}")
-    print(found_urls)            
+    print(found_urls)
     return found_urls
+
 # 测量下载速度
 def measure_download_speed(url, name, duration=10):
     try:
-       # print(f"开始测量下载速度：{url}")
         start_time = time.time()
         response = requests.get(url, stream=True, timeout=3)
-
         total_downloaded = 0
         for data in response.iter_content(1024 * 1024):
             total_downloaded += len(data)
-            break  # 读取完1MB数据后立即结束
-
+            break  # 只读1MB就结束
         elapsed_time = time.time() - start_time
         if elapsed_time > duration:
-            speed = 0.0  # 超过时限则速度为0
+            speed = 0.0
         else:
             speed = total_downloaded / elapsed_time / 1024 / 1024  # MB/s
-            print(f"测量下载速度：{name}  {url}  {speed:.2f} MB/s")
+            print(f"测量下载速度：{name} {url} {speed:.2f} MB/s")
         return name, url, speed
     except requests.exceptions.RequestException as e:
-        #print(f"Failed to download {url}: {e}")
         return name, url, 0.0
 
-# 为每个省份处理数据
+# 为每个省份处理数据（这里只有一个广西）
 def process_province(province, output_file):
     print(f"处理 {province} 数据")
+    # 加载广西的后缀和名称
+    suffixes = load_suffixes('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广西.txt')
+    url_names = load_url_names('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广西.txt')
 
-    # 加载该省份的后缀和URL对应名称
-    suffixes = load_suffixes(f'https://raw.githubusercontent.com/panybbib/tvs/default/url/url_{province}.txt')
-    url_names = load_url_names(f'https://raw.githubusercontent.com/panybbib/tvs/default/url/url_{province}.txt')
-
-    # 获取该省份的JSON数据
+    # 获取数据
     json_data = fetch_province_data(province)
-    found_urls = extract_urls(json_data)  # 提取URL
+    if not json_data:
+        print(f"{province} 查询失败，跳过")
+        return
 
+    found_urls = extract_urls(json_data)
     usable_urls = []
+
     for original_url in found_urls:
         test_url = f"http://{original_url}/status"
         try:
@@ -159,50 +155,42 @@ def process_province(province, output_file):
         for suffix in suffixes:
             urls.add(f"http://{original_url}{suffix}")
 
-    # 并发测量下载速度
+    # 并发测速
     results = []
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        future_to_url = {executor.submit(measure_download_speed, url, url_names.get(url.split('/')[-1], "Unknown")): url for url in urls}
-
+        future_to_url = {
+            executor.submit(measure_download_speed, url, url_names.get(url.split('/')[-1], "Unknown")): url
+            for url in urls
+        }
         for future in concurrent.futures.as_completed(future_to_url):
             result = future.result()
             results.append(result)
 
-    # 将结果按name排序
+    # 按名称排序
     sorted_results = sorted(results, key=lambda x: x[0])
 
-    # 处理完一个省份，立即写入文件
-    with open(output_file, "a", encoding='utf-8') as file:  # 以追加模式打开文件
-        file.write(f"\n#{province},#genre#\n")  # 写入省份名称作为区分
+    # 写入文件（只写广西）
+    with open(output_file, "a", encoding='utf-8') as file:
+        file.write(f"\n#{province},#genre#\n")
         for name, url, speed in sorted_results:
             if speed > 0:
                 file.write(f"{name},{url}\n")
-                #file.write(f"{name},{url} -- {speed:.2f} MB/s\n")
 
 def main():
     output_file = "results.txt"
     
-    # 清空文件内容（如果文件存在）
+    # 清空文件
     open(output_file, "w").close()
 
-    # 顺序处理每个省份的数据
-    # for province in provinces:
-    #     process_province(province, output_file)
-
-    # 并发处理每个省份的数据，但每个请求间隔1秒
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-    # with concurrent.futures.ThreadPoolExecutor() as executor:
-        
+    # 只处理广西
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:  # 只有一个省份，workers=1 即可
         futures = []
         for province in provinces:
             futures.append(executor.submit(process_province, province, output_file))
-            time.sleep(5)  # 在每个任务提交前延迟1秒
+            time.sleep(5)  # 保留延迟（虽然只有一个）
 
-        
-    # 等待所有任务完成
     concurrent.futures.wait(futures)
-
-    print(f"所有省份数据处理完成，结果写入 {output_file}")
+    print(f"广西数据处理完成，结果写入 {output_file}")
 
 if __name__ == "__main__":
     main()
