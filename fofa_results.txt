@@ -1,11 +1,11 @@
 
-#天津,#genre#
-
 #北京,#genre#
 
-#重庆,#genre#
+#天津,#genre#
 
 #上海,#genre#
+
+#重庆,#genre#
 
 #河北,#genre#
 
