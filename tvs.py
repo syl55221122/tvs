@@ -26,7 +26,7 @@ headers = {
 }
 
 # 只抓取广西
-provinces = ['广西']
+provinces = ['广西', '广东']
 
 # 从 URL 加载后缀
 def load_suffixes(url):
