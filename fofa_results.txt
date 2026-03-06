@@ -1,7 +1,7 @@
 
-#天津,#genre#
-
 #北京,#genre#
+
+#天津,#genre#
 
 #上海,#genre#
 
@@ -27,33 +27,33 @@
 
 #福建,#genre#
 
-#山东,#genre#
-
 #江西,#genre#
 
-#河南,#genre#
+#山东,#genre#
 
 #湖北,#genre#
 
-#湖南,#genre#
+#河南,#genre#
 
 #广东,#genre#
 
-#海南,#genre#
+#湖南,#genre#
 
 #广西,#genre#
 
-#贵州,#genre#
+#海南,#genre#
 
 #四川,#genre#
 
-#云南,#genre#
+#贵州,#genre#
 
 #西藏,#genre#
 
-#甘肃,#genre#
+#云南,#genre#
 
 #陕西,#genre#
+
+#甘肃,#genre#
 
 #宁夏,#genre#
 
