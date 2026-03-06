@@ -129,7 +129,8 @@ def process_province(province, output_file):
     # 加载广西的后缀和名称
     suffixes = load_suffixes('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广西.txt')
     url_names = load_url_names('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广西.txt')
-
+    suffixes = load_suffixes('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广东.txt')
+    url_names = load_url_names('https://raw.githubusercontent.com/panybbib/tvs/default/url/url_广东.txt')
     # 获取数据
     json_data = fetch_province_data(province)
     if not json_data:
