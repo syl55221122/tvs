@@ -3,9 +3,9 @@
 
 #天津,#genre#
 
-#重庆,#genre#
-
 #上海,#genre#
+
+#重庆,#genre#
 
 #河北,#genre#
 
@@ -27,9 +27,9 @@
 
 #福建,#genre#
 
-#山东,#genre#
-
 #江西,#genre#
+
+#山东,#genre#
 
 #河南,#genre#
 
@@ -39,9 +39,9 @@
 
 #广东,#genre#
 
-#海南,#genre#
-
 #广西,#genre#
+
+#海南,#genre#
 
 #贵州,#genre#
 
