@@ -3,9 +3,9 @@
 
 #天津,#genre#
 
-#上海,#genre#
-
 #重庆,#genre#
+
+#上海,#genre#
 
 #河北,#genre#
 
@@ -15,9 +15,9 @@
 
 #辽宁,#genre#
 
-#吉林,#genre#
-
 #黑龙江,#genre#
+
+#吉林,#genre#
 
 #江苏,#genre#
 
@@ -43,20 +43,20 @@
 
 #海南,#genre#
 
-#贵州,#genre#
-
 #四川,#genre#
 
-#西藏,#genre#
+#贵州,#genre#
 
 #云南,#genre#
+
+#西藏,#genre#
 
 #陕西,#genre#
 
 #甘肃,#genre#
 
-#青海,#genre#
-
 #宁夏,#genre#
+
+#青海,#genre#
 
 #新疆,#genre#
