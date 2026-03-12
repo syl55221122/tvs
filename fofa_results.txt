@@ -11,9 +11,9 @@
 
 #山西,#genre#
 
-#内蒙古,#genre#
-
 #辽宁,#genre#
+
+#内蒙古,#genre#
 
 #吉林,#genre#
 
@@ -31,9 +31,9 @@
 
 #山东,#genre#
 
-#湖北,#genre#
-
 #河南,#genre#
+
+#湖北,#genre#
 
 #广东,#genre#
 
@@ -55,8 +55,8 @@
 
 #甘肃,#genre#
 
-#宁夏,#genre#
-
 #青海,#genre#
+
+#宁夏,#genre#
 
 #新疆,#genre#
