@@ -35,25 +35,25 @@
 
 #湖北,#genre#
 
-#广东,#genre#
-
 #湖南,#genre#
 
-#海南,#genre#
+#广东,#genre#
 
 #广西,#genre#
 
-#贵州,#genre#
+#海南,#genre#
 
 #四川,#genre#
+
+#贵州,#genre#
 
 #云南,#genre#
 
 #西藏,#genre#
 
-#甘肃,#genre#
-
 #陕西,#genre#
+
+#甘肃,#genre#
 
 #青海,#genre#
 
