@@ -43,9 +43,9 @@
 
 #海南,#genre#
 
-#四川,#genre#
-
 #贵州,#genre#
+
+#四川,#genre#
 
 #云南,#genre#
 
@@ -53,9 +53,9 @@
 
 #陕西,#genre#
 
-#青海,#genre#
-
 #甘肃,#genre#
+
+#青海,#genre#
 
 #宁夏,#genre#
 
