@@ -13,9 +13,9 @@
 
 #内蒙古,#genre#
 
-#吉林,#genre#
-
 #辽宁,#genre#
+
+#吉林,#genre#
 
 #黑龙江,#genre#
 
@@ -43,9 +43,9 @@
 
 #海南,#genre#
 
-#贵州,#genre#
-
 #四川,#genre#
+
+#贵州,#genre#
 
 #云南,#genre#
 
